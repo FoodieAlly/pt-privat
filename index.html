@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="no"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self' data: blob:; font-src 'self' data:; media-src 'self' data: blob:; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer"><meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>&#8203;</title><style>html,body{margin:0;height:100%;background:#fff}</style></head><body>
+<script>
+(async()=>{const K='pt-k',b64u=s=>Uint8Array.from(atob(s.replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0));let k=null;
+ const m=location.hash.match(/^#k=([A-Za-z0-9_-]{43})$/);
+ if(m){k=m[1];try{localStorage.setItem(K,k)}catch(e){}history.replaceState(null,'',location.pathname)}else{try{k=localStorage.getItem(K)}catch(e){}}
+ if(!k)return;
+ try{const key=await crypto.subtle.importKey('raw',b64u(k),'AES-GCM',false,['decrypt']);
+  const dec=async u=>{const r=await fetch(u,{cache:'no-store'});const b=new Uint8Array(await r.arrayBuffer());return crypto.subtle.decrypt({name:'AES-GCM',iv:b.slice(0,12)},key,b.slice(12))};
+  const html=new TextDecoder().decode(await dec('app.enc'));
+  window.__PT_MODEL=()=>dec('model.enc');window.__PT_LOGOUT=()=>{try{localStorage.removeItem(K)}catch(e){}location.replace(location.pathname)};
+  document.open();document.write(html);document.close()}catch(e){try{localStorage.removeItem(K)}catch(_){}}})();
+</script></body></html>
